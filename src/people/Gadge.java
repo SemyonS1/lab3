@@ -10,5 +10,7 @@ public class Gadge extends Person {
         super(place, name);
     }
     public void sleep(){}
-    public void stir(){}
+    public void stir(){
+        feel(Emotion.DISCOMFORT);
+    }
 }
