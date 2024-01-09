@@ -8,6 +8,6 @@ public class Church extends Animal {
         super(species, name);
     }
     public void interactW(Person person){
-        System.out.println("meow");
+        System.out.printf("meow");
     }
 }
