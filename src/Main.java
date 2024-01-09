@@ -1,5 +1,3 @@
-import enumerations.Emotion;
-import enumerations.Species;
 import people.*;
 import things.*;
 import enumerations.*;

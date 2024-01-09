@@ -14,9 +14,9 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         this.name = name;
     }
     public void lookAt(Person person){}
-    public void think(String s) {System.out.printf("%n-%s", s);}
-    public void sayTo(Person p, String s){
-        System.out.printf("%n-%s", s);
+    public void think(String string) {System.out.printf("%n-%s", string);}
+    public void sayTo(Person person, String string){
+        System.out.printf("%n-%s", string);
     }
     public void putSmthDown(Thing thing, Place place){
         thing.place = place;
