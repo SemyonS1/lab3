@@ -10,5 +10,5 @@ abstract class Animal {
         this.species = species;
         this.name = name;
     }
-    public void interactW(Person person){}
+    public abstract void interactW(Person person);
 }
