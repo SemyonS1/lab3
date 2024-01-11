@@ -4,22 +4,30 @@ import enumerations.*;
 
 public class Main {
     public static void main(String[] args) {
-        Louis louis = new Louis(Place.WINDOWSILL, "Luis", 36);
-        Gadge gadge = new Gadge(Place.WINDOWSILL, "Gadge");
-        Rachel rachel = new Rachel(Place.HALL, "Rachel");
-        Elly elly =  new Elly(Place.WINDOWSILL, "Elly");
+        Louis louis = new Louis(Place.WINDOWSILL, 36);
+        Gadge gadge = new Gadge(Place.WINDOWSILL);
+        Person rachel = new Person();
+        rachel.setPlace(Place.HALL);
+        Elly elly =  new Elly(Place.WINDOWSILL);
         Entity entity = new Entity();
         Door door = new Door(Place.ENTRANCE, 1, DoorState.CLOSED);
-        Coffin coffin = new Coffin(Place.EXHIBITION, 100);
         Church church = new Church(Species.CAT, "Church");
-        Scene scene = new Scene(coffin);
+        Uncle uncle = new Uncle(Place.EXHIBITION);
+        Thing deck = new Thing();
+        deck.setPlace(Place.EXHIBITION);
+        deck.setQuantity(1000);
+        Scene scene = new Scene();
 
+
+        uncle.createCoffin(deck);
+        uncle.lightCoffinTops();
+        scene.contents = uncle.createCoffin(deck);
         rachel.lookAt(louis);
         louis.holdSmn(gadge);
         gadge.feel(Emotion.SLEEPY);
         gadge.sleep();
         rachel.feel(Emotion.DESPAIR);
-        if (rachel.feel(Emotion.DESPAIR)){
+        if (rachel.getEmotionalState() == Emotion.DESPAIR){
             louis.feel(Emotion.FEAR);
             louis.think("We're really going to get old. It's really true. No one's going to make an exception for us. She's on her way … and so are we.");
         }

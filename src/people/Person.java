@@ -8,11 +8,11 @@ import java.util.Objects;
 
 public class Person implements PutInterface, HoldInterface, MovementInterface {
     public Place place;
-    protected String name;
-    public Person(Place place, String name){
+    private Emotion EmotionalState;
+    protected Person(Place place){
         this.place = place;
-        this.name = name;
     }
+    public Person(){}
     public void lookAt(Person person){}
     public void think(String string) {System.out.printf("%n-%s", string);}
     public void sayTo(Person person, String string){
@@ -30,29 +30,18 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         this.place = place;
     }
     public void jump(){}
-    public boolean feel(Emotion emotion){
-        return true;
+    public void feel(Emotion emotion){
+        setEmotionalState(emotion);
     }
     public void laugh(){}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return place == person.place && Objects.equals(name, person.name);
+    public void setPlace(Place place){
+        this.place = place;
+    }
+    public void setEmotionalState(Emotion emotionalState){
+        this.EmotionalState = emotionalState;
+    }
+    public Emotion getEmotionalState(){
+        return this.EmotionalState;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(place, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "place=" + place +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

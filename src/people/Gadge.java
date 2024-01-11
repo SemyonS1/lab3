@@ -1,13 +1,11 @@
 package people;
 
-import enumerations.Emotion;
-import enumerations.Place;
-import interfaces.PutInterface;
-import people.Person;
+import enumerations.*;
+
 
 public class Gadge extends Person {
-    public Gadge(Place place, String name){
-        super(place, name);
+    public Gadge(Place place){
+        super(place);
     }
     public void sleep(){}
     public void stir(){

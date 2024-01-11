@@ -1,12 +1,13 @@
 package people;
 
 import enumerations.Place;
+import things.Coffin;
 import things.Scene;
 
 public class Louis extends Person{
     protected int temperature;
-    public Louis(Place place, String name, int temperature){
-        super(place, name);
+    public Louis(Place place, int temperature){
+        super(place);
         this.temperature = temperature;
     }
     public void remember(Scene scene){}

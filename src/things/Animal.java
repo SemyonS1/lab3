@@ -6,7 +6,7 @@ import people.Person;
 abstract class Animal {
     Species species;
     String name;
-    public Animal(Species species, String name){
+    protected Animal(Species species, String name){
         this.species = species;
         this.name = name;
     }
