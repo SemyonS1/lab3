@@ -1,13 +1,33 @@
 package things;
 
 import enumerations.*;
+import exceptions.DoorStateException;
 import exceptions.OpenDoorException;
 
 public class Door extends Thing{
     public DoorState state;
-    public Door(Place place, int quantity, DoorState state){
+    public Door(Place place, int quantity, DoorState state) {
         super(place, quantity);
         this.state = state;
+    }
+    public DoorState getState() throws DoorStateException{
+        if ((state != DoorState.OPEN) && (state != DoorState.CLOSED)){
+            throw new DoorStateException("Так нельзя");
+        }
+        else{
+            return this.state;
+        }
+    }
+    public boolean isValidState(){
+        try{
+            getState();
+            System.out.println("normal");
+            return true;
+        }
+        catch (DoorStateException doorStateException){
+            System.out.println("ne normal");
+            return false;
+        }
     }
 
     public void openEx(){

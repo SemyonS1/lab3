@@ -48,7 +48,6 @@ public class Main {
         louis.feel(Emotion.DISTURBANCE);
         louis.think("What the hell is it? Ghosts? Christ, it really feels as if something just brushed by me in this hallway, something I almost saw.");
         door.open();
-        door.open();
         louis.jump();
         louis.laugh();
         louis.feel(Emotion.TREMORS);
