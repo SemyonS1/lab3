@@ -19,9 +19,9 @@ public class Main {
         Scene scene = new Scene();
 
 
-        uncle.createCoffin(deck);
+        Coffin coffin = uncle.createCoffin(deck);
         uncle.lightCoffinTops();
-        scene.contents = uncle.createCoffin(deck);
+        scene.contents = uncle.createCoffin(coffin);
         rachel.lookAt(louis);
         louis.holdSmn(gadge);
         gadge.feel(Emotion.SLEEPY);
@@ -47,6 +47,7 @@ public class Main {
         louis.think("What's wrong?");
         louis.feel(Emotion.DISTURBANCE);
         louis.think("What the hell is it? Ghosts? Christ, it really feels as if something just brushed by me in this hallway, something I almost saw.");
+        door.open();
         door.open();
         louis.jump();
         louis.laugh();

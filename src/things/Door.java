@@ -1,6 +1,7 @@
 package things;
 
 import enumerations.*;
+import exceptions.OpenDoorException;
 
 public class Door extends Thing{
     public DoorState state;
@@ -9,11 +10,19 @@ public class Door extends Thing{
         this.state = state;
     }
 
-    public void open(){
+    public void openEx(){
         if (this.state == DoorState.OPEN) {
-            System.exit(1);
+            throw new OpenDoorException("Почему дверь открывается дважды?");
         }
-        System.out.println("*screach noises*");
+        System.out.printf("%n%s","*screach noises*");
         this.state = DoorState.OPEN;
+    }
+    public void open(){
+        try{
+            openEx();
+        }
+        catch(OpenDoorException openDoorException){
+            System.out.printf("%n%s","Нельзя так");
+        }
     }
 }
