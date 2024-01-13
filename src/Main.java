@@ -2,6 +2,8 @@ import people.*;
 import things.*;
 import enumerations.*;
 
+
+
 public class Main {
     public static void main(String[] args) {
         Louis louis = new Louis(Place.WINDOWSILL, 36);
@@ -10,18 +12,19 @@ public class Main {
         rachel.setPlace(Place.HALL);
         Elly elly =  new Elly(Place.WINDOWSILL);
         Entity entity = new Entity();
-        Door door = new Door(Place.ENTRANCE, 1, DoorState.CLOSED);
+        Door door = new Door(Place.ENTRANCE, 1, 5, DoorState.CLOSED);
         Church church = new Church(Species.CAT, "Church");
         Uncle uncle = new Uncle(Place.EXHIBITION);
-        Thing deck = new Thing();
-        deck.setPlace(Place.EXHIBITION);
-        deck.setQuantity(1000);
+        Thing wood = new Thing();
+        wood.setWeight(1000);
+        wood.setPlace(Place.EXHIBITION);
+        wood.setQuantity(1);
         Scene scene = new Scene();
 
 
-        Coffin coffin = uncle.createCoffin(deck);
+        Coffin coffin = uncle.createCoffin(wood);
         uncle.lightCoffinTops();
-        scene.contents = uncle.createCoffin(coffin);
+        scene.contents = coffin;
         rachel.lookAt(louis);
         louis.holdSmn(gadge);
         gadge.feel(Emotion.SLEEPY);

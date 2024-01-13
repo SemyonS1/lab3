@@ -6,8 +6,8 @@ import exceptions.OpenDoorException;
 
 public class Door extends Thing{
     public DoorState state;
-    public Door(Place place, int quantity, DoorState state) {
-        super(place, quantity);
+    public Door(Place place, int quantity, int weight, DoorState state) {
+        super(place, quantity, weight);
         this.state = state;
     }
     public DoorState getState() throws DoorStateException{

@@ -11,7 +11,13 @@ public class Uncle extends Person{
     public void lightCoffinTops(){
         Coffin.CoffinTop.levelOfLighting = 30;
     }
-    public Coffin createCoffin(Thing deck){
-        return new Coffin(Place.EXHIBITION, 100);
+    public Coffin createCoffin(Thing wood){
+        Thing deck = new Thing(1){
+            public void setWeight(Thing wood){
+                wood.weight /= 1000;
+            }
+        };
+        deck.setWeight(1000);
+        return new Coffin(Place.EXHIBITION, 100, 9);
     }
 }
