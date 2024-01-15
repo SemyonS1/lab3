@@ -2,21 +2,53 @@ package people;
 
 import enumerations.*;
 import interfaces.*;
-import things.Coffin;
-import things.Scene;
-import things.Thing;
+import things.*;
+
+import java.util.ArrayList;
 
 public class Person implements PutInterface, HoldInterface, MovementInterface {
     private Place place;
-    private Emotion EmotionalState;
+    private String name;
+    private ArrayList<Emotion> EmotionalState;
     private int temperature;
+    private ArrayList<Injury> injuries;
 
-    public Person(Place place, int temperature) {
+    public Person(Place place, int temperature, String name) {
         this.place = place;
         this.temperature = temperature;
+        this.name = name;
         Heart heart = new Heart(120);
     }
 
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(int temperature) {
+        this.temperature = temperature;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setInjuries(Injury injury){
+        this.injuries.add(injury);
+    }
+    public Injury getInjuries(int index){
+        return this.injuries.get(index);
+    }
     private static class Heart {
         private static int BloodPumpingSpeed;
 
@@ -58,7 +90,7 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
 
     public void feel(Emotion emotion) {
         setEmotionalState(emotion);
-        if ((this.EmotionalState == Emotion.FEAR) || (this.EmotionalState == Emotion.DISTURBANCE)) {
+        if ((this.EmotionalState.contains(Emotion.FEAR)) || (this.EmotionalState.contains(Emotion.DISTURBANCE))) {
             Heart.pumpBloodFaster();
         }
     }
@@ -66,21 +98,18 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     public void laugh() {
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
-    }
 
     public void setEmotionalState(Emotion emotionalState) {
-        this.EmotionalState = emotionalState;
+        this.EmotionalState.add(emotionalState);
     }
 
     public Emotion getEmotionalState() {
-        return this.EmotionalState;
+        return this.EmotionalState.get(-1);
     }
     public void sleep(){}
     public void stir(){feel(Emotion.DISCOMFORT);
     }
-    public void showSmthTo(Person person, EllyShow thing){}
+    public void showTo(Person person, Injury injury){}
     public void remember(Scene scene){}
     public void kissSmn(Person person){}
     public void goTo(Place place){

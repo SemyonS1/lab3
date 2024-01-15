@@ -6,14 +6,14 @@ import enumerations.*;
 
 public class Main {
     public static void main(String[] args) {
-        Person louis = new Person(Place.WINDOWSILL, 36);
-        Person gadge = new Person(Place.WINDOWSILL, 36);
-        Person rachel = new Person(Place.HALL, 36);
-        Person elly =  new Person(Place.WINDOWSILL, 36);
+        Person louis = new Person(Place.WINDOWSILL, 36, "Louis");
+        Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge");
+        Person rachel = new Person(Place.HALL, 36, "Rachel");
+        Person elly =  new Person(Place.WINDOWSILL, 36, "Elly");
         Entity entity = new Entity();
         Door door = new Door(Place.ENTRANCE, 1, 5, DoorState.CLOSED);
-        Church church = new Church(Species.CAT, "Church");
-        Person uncle = new Person(Place.EXHIBITION, 36);
+        Cat church = new Cat("Church");
+        Person uncle = new Person(Place.EXHIBITION, 36, "Uncle");
         Thing wood = new Thing();
         wood.setWeight(1000);
         wood.setPlace(Place.EXHIBITION);
@@ -24,6 +24,7 @@ public class Main {
         Coffin coffin = uncle.createCoffin(wood);
         uncle.lightCoffinTops();
         scene.contents = coffin;
+        elly.setInjuries(Injury.SCRATCH);
         rachel.lookAt(louis);
         louis.holdSmn(gadge);
         gadge.feel(Emotion.SLEEPY);
@@ -34,8 +35,8 @@ public class Main {
             louis.think("We're really going to get old. It's really true. No one's going to make an exception for us. She's on her way … and so are we.");
         }
         elly.goTo(Place.WINDOWSILL);
-        elly.showSmthTo(louis, EllyShow.PICTURE);
-        elly.showSmthTo(louis, EllyShow.SCRATCH);
+        elly.showTo(louis, elly.getInjuries(0));
+        elly.showTo(louis, );
         elly.sayTo(louis, "Old MacDonald and Mrs Berryman!");
         church.interactW(elly);
         louis.sayTo(elly, "Shh");
