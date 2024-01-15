@@ -6,44 +6,56 @@ import enumerations.*;
 
 public class Main {
     public static void main(String[] args) {
-        Person louis = new Person(Place.WINDOWSILL, 36, "Louis");
-        Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge");
-        Person rachel = new Person(Place.HALL, 36, "Rachel");
-        Person elly =  new Person(Place.WINDOWSILL, 36, "Elly");
-        Entity entity = new Entity();
+        Person louis = new Person(Place.WINDOWSILL, 36, "Louis", 120);
+        Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge", 120);
+        Person rachel = new Person(Place.HALL, 36, "Rachel", 120);
+        Person elly =  new Person(Place.WINDOWSILL, 36, "Elly", 120);
         Door door = new Door(Place.ENTRANCE, 1, 5, DoorState.CLOSED);
         Cat church = new Cat("Church");
-        Person uncle = new Person(Place.EXHIBITION, 36, "Uncle");
-        Thing wood = new Thing();
-        wood.setWeight(1000);
-        wood.setPlace(Place.EXHIBITION);
-        wood.setQuantity(1);
-        Scene scene = new Scene();
-
-
-        Coffin coffin = uncle.createCoffin(wood);
+        Person uncle = new Person(Place.EXHIBITION, 36, "Uncle", 120);
+        Deck deck = new Deck(Place.EXHIBITION, 1000, 1);
+        Coffin coffin = uncle.createCoffin(deck);
         uncle.lightCoffinTops();
-        scene.contents = coffin;
-        elly.setInjuries(Injury.SCRATCH);
+        Picture picture = new Picture(Place.HALL, 1, 0.1);
+        Scene scene = new Scene(coffin);
+
+        elly.jump();
         rachel.lookAt(louis);
-        louis.holdSmn(gadge);
+        Picture finishedPicture = elly.draw(picture);
+        louis.lookAt(gadge);
+        louis.hold(louis.getPersonAtSight());
         gadge.feel(Emotion.SLEEPY);
         gadge.sleep();
+        gadge.lookAt(rachel);
         rachel.feel(Emotion.DESPAIR);
         if (rachel.getEmotionalState() == Emotion.DESPAIR){
             louis.feel(Emotion.FEAR);
             louis.think("We're really going to get old. It's really true. No one's going to make an exception for us. She's on her way … and so are we.");
         }
+        louis.lookAt(elly);
+        elly.lookAt(louis);
         elly.goTo(Place.WINDOWSILL);
-        elly.showTo(louis, elly.getInjuries(0));
-        elly.showTo(louis, );
+        elly.showTo(elly.getPersonAtSight(), elly.getInjuries());
+        elly.showTo(elly.getPersonAtSight(), finishedPicture);
         elly.sayTo(louis, "Old MacDonald and Mrs Berryman!");
         church.interactW(elly);
-        louis.sayTo(elly, "Shh");
+        louis.sayTo(louis.getPersonAtSight(), "Shh");
         louis.kissSmn(elly);
         louis.sayTo(elly, "Just let me put the baby to bed and then I'll listen to everything.");
+        louis.lookAt(gadge);
         louis.goTo(Place.LADDER);
-        entity.triggerLouis(louis);
+        Entity trigger = new Entity(){
+           private void makeTrigger() {
+               louis.feel(Emotion.FEAR);
+               louis.feel(Emotion.DESPAIR);
+               louis.feel(Emotion.SURPRISE);
+           }
+            @Override
+            public void triggerLouis(Person louis) {
+                makeTrigger();
+            }
+        };
+        trigger.triggerLouis(louis);
         louis.lookAround();
         louis.clutch(gadge);
         louis.feel(Emotion.GOOSEBUMPS);
@@ -55,13 +67,14 @@ public class Main {
         louis.laugh();
         louis.feel(Emotion.TREMORS);
         louis.goTo(Place.GADGE_ROOM);
-        louis.putSmnDown(gadge, Place.GADGE_BED);
+        louis.putDown(gadge, Place.GADGE_BED);
         louis.putBlanketOver(gadge);
         louis.remember(scene);
         louis.think("Good God, what gave you the horrors? Let it go! Dump it!");
         louis.kissSmn(gadge);
         louis.goTo(Place.HALL);
         elly.goTo(Place.HALL);
-        elly.sayTo(louis, "My first day at school!");
+        louis.lookAt(elly);
+        elly.sayTo(elly.getPersonAtSight(), "My first day at school!");
     }
 }

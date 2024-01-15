@@ -5,7 +5,7 @@ import people.Person;
 import things.Thing;
 
 public interface PutInterface {
-    void putSmthDown(Thing thing, Place place);
-    void putSmnDown(Person person, Place place);
+    void putDown(Thing thing, Place place);
+    void putDown(Person person, Place place);
 
 }

@@ -1,10 +1,12 @@
 package people;
 
 import enumerations.*;
+import exceptions.DifferentPlacesException;
 import interfaces.*;
 import things.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Person implements PutInterface, HoldInterface, MovementInterface {
     private Place place;
@@ -12,12 +14,17 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     private ArrayList<Emotion> EmotionalState;
     private int temperature;
     private ArrayList<Injury> injuries;
+    private int BloodPressure;
+    private Person PersonAtSight;
+    private Thing ObjectAtSight;
 
-    public Person(Place place, int temperature, String name) {
+    public Person(Place place, int temperature, String name, int bloodPressure) {
         this.place = place;
         this.temperature = temperature;
         this.name = name;
-        Heart heart = new Heart(120);
+        this.BloodPressure = bloodPressure;
+        this.injuries = new ArrayList<>();
+        this.EmotionalState = new ArrayList<>();
     }
 
     public int getTemperature() {
@@ -46,21 +53,35 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     public void setInjuries(Injury injury){
         this.injuries.add(injury);
     }
-    public Injury getInjuries(int index){
-        return this.injuries.get(index);
+    public Injury getInjuries(){
+        return this.injuries.get(injuries.size() - 1);
     }
-    private static class Heart {
-        private static int BloodPumpingSpeed;
+    public void setEmotionalState(Emotion emotionalState) {
+        this.EmotionalState.add(emotionalState);
+    }
 
-        protected Heart(int BloodPumpingSpeed) {
-        }
-
-        private static void pumpBloodFaster() {
-            Heart.BloodPumpingSpeed = Heart.BloodPumpingSpeed + 60;
-        }
+    public Emotion getEmotionalState() {
+        return this.EmotionalState.get(EmotionalState.size() - 1);
+    }
+    public Person getPersonAtSight() {
+        return PersonAtSight;
     }
 
     public void lookAt(Person person) {
+        this.PersonAtSight = person;
+    }
+
+    public String getObjectAtSight() {
+        return ObjectAtSight.getClass().getName();
+    }
+
+    public void lookAt(Thing thing) {
+        this.ObjectAtSight = thing;
+        if((thing.getClass() == Coffin.class)){
+            this.feel(Emotion.FEAR);
+            this.feel(Emotion.DESPAIR);
+            this.feel(Emotion.DISTURBANCE);
+        }
     }
 
     public void think(String string) {
@@ -71,46 +92,86 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         System.out.printf("%n-%s", string);
     }
 
-    public void putSmthDown(Thing thing, Place place) {
-        thing.place = place;
+    public void putDown(Thing thing, Place place) {
+        thing.setPlace(place);
     }
 
-    public void putSmnDown(Person person, Place place) {
+    public void putDown(Person person, Place place) {
         person.place = place;
     }
 
 
 
-    public void holdSmn(Person person) {
+    public void hold(Person person){
+        try{
+            if (this.getPlace() != person.getPlace()) {
+                throw new DifferentPlacesException("Так нельзя!");
+            }
+        }
+        catch (DifferentPlacesException e){
+        System.out.printf("%n%s", e.getMessage());
+        }
     }
 
+    public void hold(Thing thing){
+        try {
+            if (thing.getClass() == Deck.class) {
+                ((Deck) thing).injurePerson(this);
+            }
+            if (this.getPlace() != thing.getPlace()) {
+                throw new DifferentPlacesException("Так нельзя!");
+            }
+        }
+        catch (DifferentPlacesException e){
+            System.out.printf("%n%s", e.getMessage());
+        }
+    }
 
     public void jump() {
+        int chance = (int)(Math.random() * 10);
+        if (chance == 7){
+            setInjuries(Injury.SCRATCH);
+        }
+        if (Objects.equals(this.getName(), "Elly")){
+            setInjuries(Injury.SCRATCH);
+        }
     }
 
     public void feel(Emotion emotion) {
         setEmotionalState(emotion);
-        if ((this.EmotionalState.contains(Emotion.FEAR)) || (this.EmotionalState.contains(Emotion.DISTURBANCE))) {
-            Heart.pumpBloodFaster();
+        if (emotion == Emotion.FEAR||emotion == Emotion.DISTURBANCE){
+            setBloodPressure(10);
         }
     }
 
     public void laugh() {
+        this.feel(Emotion.JOY);
     }
 
-
-    public void setEmotionalState(Emotion emotionalState) {
-        this.EmotionalState.add(emotionalState);
+    public int getBloodPressure() {
+        return BloodPressure;
     }
 
-    public Emotion getEmotionalState() {
-        return this.EmotionalState.get(-1);
+    public void setBloodPressure(int bloodPressure) {
+        BloodPressure += bloodPressure;
     }
-    public void sleep(){}
+    public void sleep(){
+        setBloodPressure(-(getBloodPressure() - 120));
+    }
+
     public void stir(){feel(Emotion.DISCOMFORT);
     }
-    public void showTo(Person person, Injury injury){}
-    public void remember(Scene scene){}
+    public void showTo(Person person, Injury injury){
+        System.out.printf("%n-%s", "Hey, look!");
+    }
+    public void showTo(Person person, Thing thing){
+        System.out.printf("%n-%s", "Hey, look!");
+    }
+    public void remember(Scene scene){
+        this.feel(Emotion.FEAR);
+        this.feel(Emotion.DESPAIR);
+        this.feel(Emotion.DISTURBANCE);
+    }
     public void kissSmn(Person person){}
     public void goTo(Place place){
         this.place = place;
@@ -121,22 +182,29 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
             this.temperature = 36;
         }
     }
-    public void lookAround(){}
+    public void lookAround(){
+        System.out.printf("%n-%s","Huh?");
+    }
     public void clutch(Person gadge){
         gadge.stir();
     }
-    public void putBlanketOver(Person gadge){}
+    public void putBlanketOver(Person gadge){gadge.setTemperature(37);}
     public void lightCoffinTops(){
         Coffin.CoffinTop.levelOfLighting = 30;
     }
-    public Coffin createCoffin(Thing wood){
-        Thing deck = new Thing(1){
-            public void setWeight(Thing wood){
-                wood.weight /= 1000;
-            }
-        };
-        deck.setWeight(1000);
+    public Coffin createCoffin(Thing deck){
+        this.hold(deck);
         return new Coffin(Place.EXHIBITION, 100, 9);
     }
-
+    public Picture draw(Picture picture){
+        Person drawnLouis = new Person(Place.GADGE_ROOM, 0, "Daddy", 0);
+        Person drawnRachel = new Person(Place.GADGE_ROOM, 0, "Mommy", 0);
+        Person drawnGadge = new Person(Place.GADGE_ROOM, 0, "Brother", 0);
+        Person drawnElly = new Person(Place.GADGE_ROOM, 0, "Me", 0);
+        picture.setContents(drawnLouis);
+        picture.setContents(drawnRachel);
+        picture.setContents(drawnGadge);
+        picture.setContents(drawnElly);
+        return picture;
+    }
 }
