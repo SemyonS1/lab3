@@ -1,7 +1,6 @@
 package interfaces;
 
 import enumerations.Place;
-import people.Gadge;
 import people.Person;
 import things.Thing;
 

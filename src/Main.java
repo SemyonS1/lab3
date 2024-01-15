@@ -6,15 +6,14 @@ import enumerations.*;
 
 public class Main {
     public static void main(String[] args) {
-        Louis louis = new Louis(Place.WINDOWSILL, 36);
-        Gadge gadge = new Gadge(Place.WINDOWSILL);
-        Person rachel = new Person();
-        rachel.setPlace(Place.HALL);
-        Elly elly =  new Elly(Place.WINDOWSILL);
+        Person louis = new Person(Place.WINDOWSILL, 36);
+        Person gadge = new Person(Place.WINDOWSILL, 36);
+        Person rachel = new Person(Place.HALL, 36);
+        Person elly =  new Person(Place.WINDOWSILL, 36);
         Entity entity = new Entity();
         Door door = new Door(Place.ENTRANCE, 1, 5, DoorState.CLOSED);
         Church church = new Church(Species.CAT, "Church");
-        Uncle uncle = new Uncle(Place.EXHIBITION);
+        Person uncle = new Person(Place.EXHIBITION, 36);
         Thing wood = new Thing();
         wood.setWeight(1000);
         wood.setPlace(Place.EXHIBITION);
