@@ -12,19 +12,11 @@ public class Door extends Thing{
 
 
 
-    public void openEx(){
+    public void open() throws OpenDoorException{
         if (this.state == DoorState.OPEN) {
             throw new OpenDoorException("Почему дверь открывается дважды?");
         }
         System.out.printf("%n%s","*screach noises*");
         this.state = DoorState.OPEN;
-    }
-    public void open(){
-        try{
-            openEx();
-        }
-        catch(OpenDoorException openDoorException){
-            System.out.printf("%n%s","Нельзя так");
-        }
     }
 }

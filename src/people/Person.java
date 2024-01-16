@@ -207,4 +207,31 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         picture.setContents(drawnElly);
         return picture;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return getTemperature() == person.getTemperature() && getBloodPressure() == person.getBloodPressure() && getPlace() == person.getPlace() && Objects.equals(getName(), person.getName()) && Objects.equals(getEmotionalState(), person.getEmotionalState()) && Objects.equals(getInjuries(), person.getInjuries()) && Objects.equals(getPersonAtSight(), person.getPersonAtSight()) && Objects.equals(getObjectAtSight(), person.getObjectAtSight());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPlace(), getName(), getEmotionalState(), getTemperature(), getInjuries(), getBloodPressure(), getPersonAtSight(), getObjectAtSight());
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "place=" + place +
+                ", name='" + name + '\'' +
+                ", EmotionalState=" + EmotionalState +
+                ", temperature=" + temperature +
+                ", injuries=" + injuries +
+                ", BloodPressure=" + BloodPressure +
+                ", PersonAtSight=" + PersonAtSight +
+                ", ObjectAtSight=" + ObjectAtSight +
+                '}';
+    }
 }
