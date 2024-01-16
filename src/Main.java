@@ -44,18 +44,8 @@ public class Main {
         louis.sayTo(elly, "Just let me put the baby to bed and then I'll listen to everything.");
         louis.lookAt(gadge);
         louis.goTo(Place.LADDER);
-        Entity trigger = new Entity(){
-           private void makeTrigger() {
-               louis.feel(Emotion.FEAR);
-               louis.feel(Emotion.DESPAIR);
-               louis.feel(Emotion.SURPRISE);
-           }
-            @Override
-            public void triggerLouis(Person louis) {
-                makeTrigger();
-            }
-        };
-        trigger.triggerLouis(louis);
+        Entity entity = new Entity();
+        entity.triggerLouis(louis);
         louis.lookAround();
         louis.clutch(gadge);
         louis.feel(Emotion.GOOSEBUMPS);

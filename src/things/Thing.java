@@ -37,5 +37,4 @@ public abstract class Thing {
     public double getWeight() {
         return weight;
     }
-    public abstract void injurePerson(Person person);
 }
