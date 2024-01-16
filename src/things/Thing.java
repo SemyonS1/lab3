@@ -1,6 +1,7 @@
 package things;
 
 import enumerations.Place;
+import people.Person;
 
 public abstract class Thing {
     private Place place;
@@ -36,4 +37,5 @@ public abstract class Thing {
     public double getWeight() {
         return weight;
     }
+    public abstract void injurePerson(Person person);
 }
