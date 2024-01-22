@@ -2,6 +2,7 @@ import people.*;
 import things.*;
 import enumerations.*;
 
+import java.util.ArrayList;
 
 
 public class Main {
@@ -10,18 +11,23 @@ public class Main {
         Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge", 120);
         Person rachel = new Person(Place.HALL, 36, "Rachel", 120);
         Person elly =  new Person(Place.WINDOWSILL, 36, "Elly", 120);
-        Door door = new Door(Place.ENTRANCE, 1, 5, DoorState.CLOSED);
+        Door door = new Door(Place.ENTRANCE, 5, DoorState.CLOSED);
         Cat church = new Cat("Church");
         Person uncle = new Person(Place.EXHIBITION, 36, "Uncle", 120);
-        Deck deck = new Deck(Place.EXHIBITION, 1000, 1);
-        Coffin coffin = uncle.createCoffin(deck);
+        ArrayList<Deck> deck = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            Deck d = new Deck(Place.EXHIBITION, 1);
+            deck.add(d);
+        }
+        Picture picture = new Picture(Place.HALL, 0.1);
+        ArrayList<Coffin> coffins = uncle.createCoffin(deck);
         uncle.lightCoffinTops();
-        Picture picture = new Picture(Place.HALL, 1, 0.1);
-        Scene scene = new Scene(coffin);
+        Scene scene = new Scene(coffins);
 
         elly.jump();
         rachel.lookAt(louis);
         Picture finishedPicture = elly.draw(picture);
+        elly.hold(finishedPicture);
         louis.lookAt(gadge);
         louis.hold(louis.getPersonAtSight());
         gadge.feel(Emotion.SLEEPY);
@@ -42,6 +48,7 @@ public class Main {
         louis.sayTo(louis.getPersonAtSight(), "Shh");
         louis.kissSmn(elly);
         louis.sayTo(elly, "Just let me put the baby to bed and then I'll listen to everything.");
+        elly.putDown(finishedPicture, Place.WINDOWSILL);
         louis.lookAt(gadge);
         louis.goTo(Place.LADDER);
         Entity entity = new Entity();

@@ -1,16 +1,13 @@
 package things;
 
 import enumerations.Place;
-import people.Person;
 
 public abstract class Thing {
     private Place place;
-    private int quantity;
     private double weight;
 
-    public Thing(Place place, int quantity, double weight) {
+    public Thing(Place place, double weight) {
         this.place = place;
-        this.quantity = quantity;
         this.weight = weight;
     }
 
@@ -18,16 +15,9 @@ public abstract class Thing {
         this.place = place;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public void setWeight(double weight) {
         this.weight = weight;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
     public Place getPlace() {

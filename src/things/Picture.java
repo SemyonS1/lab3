@@ -1,14 +1,22 @@
 package things;
 
 import enumerations.Place;
-import people.Person;
+
+import java.util.ArrayList;
 
 public class Picture extends Thing{
-    private Person contents;
-    public Picture(Place place, int quantity, double weight){
-        super(place, quantity, weight);
+    private ArrayList<Object> contents;
+    public Picture(Place place, double weight){
+        super(place, weight);
+        this.contents = new ArrayList<>();
     }
-    public void setContents(Person person){
-        this.contents = person;
+    public void setContents(Object content){
+        this.contents.add(content);
+    }
+    public Object getContents(){
+        for (Object cont: this.contents) {
+            return cont;
+        }
+        return null;
     }
 }

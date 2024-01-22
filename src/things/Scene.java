@@ -3,17 +3,22 @@ package things;
 import enumerations.Place;
 import people.Person;
 
+import java.util.ArrayList;
+
 public class Scene {
-    private Thing contents;
-    public Scene(Thing contents){
+    private ArrayList<Coffin> contents;
+    public Scene(ArrayList<Coffin> contents){
         this.contents = contents;
         Person youngLouis = new Person(Place.EXHIBITION, 36, "Louis", 120);
         youngLouis.lookAt(this.getContents());
     }
-    public void setContents(Thing contents){
+    public void setContents(ArrayList<Coffin> contents){
         this.contents = contents;
     }
-    public Thing getContents(){
-        return this.contents;
+    public Thing getContents() {
+        for (Thing content : this.contents) {
+            return content;
+        }
+        return null;
     }
 }

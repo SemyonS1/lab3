@@ -14,15 +14,15 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     private ArrayList<Emotion> EmotionalState;
     private int temperature;
     private ArrayList<Injury> injuries;
-    private int BloodPressure;
-    private Person PersonAtSight;
-    private Thing ObjectAtSight;
+    private int bloodPressure;
+    private Person personAtSight;
+    private Thing objectAtSight;
 
     public Person(Place place, int temperature, String name, int bloodPressure) {
         this.place = place;
         this.temperature = temperature;
         this.name = name;
-        this.BloodPressure = bloodPressure;
+        this.bloodPressure = bloodPressure;
         this.injuries = new ArrayList<>();
         this.EmotionalState = new ArrayList<>();
     }
@@ -64,19 +64,19 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         return this.EmotionalState.get(EmotionalState.size() - 1);
     }
     public Person getPersonAtSight() {
-        return PersonAtSight;
+        return personAtSight;
     }
 
     public void lookAt(Person person) {
-        this.PersonAtSight = person;
+        this.personAtSight = person;
     }
 
     public String getObjectAtSight() {
-        return ObjectAtSight.getClass().getName();
+        return objectAtSight.getClass().getName();
     }
 
     public void lookAt(Thing thing) {
-        this.ObjectAtSight = thing;
+        this.objectAtSight = thing;
         if((thing.getClass() == Coffin.class)){
             this.feel(Emotion.FEAR);
             this.feel(Emotion.DESPAIR);
@@ -149,11 +149,11 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     }
 
     public int getBloodPressure() {
-        return BloodPressure;
+        return bloodPressure;
     }
 
-    public void setBloodPressure(int bloodPressure) {
-        BloodPressure += bloodPressure;
+    public void setBloodPressure(int bloodpressure) {
+        bloodPressure += bloodpressure;
     }
     public void sleep(){
         setBloodPressure(-(getBloodPressure() - 120));
@@ -172,7 +172,10 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         this.feel(Emotion.DESPAIR);
         this.feel(Emotion.DISTURBANCE);
     }
-    public void kissSmn(Person person){}
+    public void kissSmn(Person person){
+        System.out.printf("%n%s", "*kiss noise");
+        person.feel(Emotion.JOY);
+    }
     public void goTo(Place place){
         this.place = place;
         if (place == Place.LADDER){
@@ -190,11 +193,18 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     }
     public void putBlanketOver(Person gadge){gadge.setTemperature(37);}
     public void lightCoffinTops(){
-        Coffin.CoffinTop.levelOfLighting = 30;
+        Place.EXHIBITION.setLeveloflighting(30);
     }
-    public Coffin createCoffin(Thing deck){
-        this.hold(deck);
-        return new Coffin(Place.EXHIBITION, 100, 9);
+    public ArrayList<Coffin> createCoffin(ArrayList<Deck> deck) {
+        for (int i = 0; i < 1000; i++) {
+            this.hold(deck.get(i));
+        }
+        ArrayList<Coffin> coffins = new ArrayList<>();
+        for (int j = 0; j < 100; j += 10){
+            Coffin coff = new Coffin(Place.EXHIBITION, 10);
+            coffins.add(coff);
+        }
+        return coffins;
     }
     public Picture draw(Picture picture){
         Person drawnLouis = new Person(Place.GADGE_ROOM, 0, "Daddy", 0);
@@ -229,9 +239,9 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
                 ", EmotionalState=" + EmotionalState +
                 ", temperature=" + temperature +
                 ", injuries=" + injuries +
-                ", BloodPressure=" + BloodPressure +
-                ", PersonAtSight=" + PersonAtSight +
-                ", ObjectAtSight=" + ObjectAtSight +
+                ", BloodPressure=" + bloodPressure +
+                ", PersonAtSight=" + personAtSight +
+                ", ObjectAtSight=" + objectAtSight +
                 '}';
     }
 }
