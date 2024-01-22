@@ -1,14 +1,19 @@
 package things;
 
-import enumerations.Species;
 import people.Person;
 
 abstract class Animal {
-    Species species;
-    String name;
-    public Animal(Species species, String name){
-        this.species = species;
+    private String name;
+    protected Animal(String name){
         this.name = name;
     }
-    public void interactW(Person person){}
+    public abstract void interactW(Person person);
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

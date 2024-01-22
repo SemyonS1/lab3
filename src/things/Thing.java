@@ -2,11 +2,29 @@ package things;
 
 import enumerations.Place;
 
-public class Thing {
-    public Place place;
-    public int quantity;
-    public Thing(Place place, int quantity){
+public abstract class Thing {
+    private Place place;
+    private double weight;
+
+    public Thing(Place place, double weight) {
         this.place = place;
-        this.quantity = quantity;
+        this.weight = weight;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public double getWeight() {
+        return weight;
     }
 }
