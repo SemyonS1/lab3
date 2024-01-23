@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         Person louis = new Person(Place.WINDOWSILL, 36, "Louis", 120);
-        Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge", 120);
+        Person gadge = new Person(Place.HALL, 36, "Semyon", 120);
         Person rachel = new Person(Place.HALL, 36, "Rachel", 120);
         Person elly = new Person(Place.WINDOWSILL, 36, "Elly", 120);
         Door door = new Door(Place.ENTRANCE, 5, DoorState.CLOSED);
@@ -20,11 +20,17 @@ public class Main {
             Deck d = new Deck(Place.EXHIBITION, 1);
             deck.add(d);
         }
-        louis.nameCat(church);
+        louis.rename(church);
+        louis.rename(gadge);
         Picture picture = new Picture(Place.HALL, 0.1);
         ArrayList<Coffin> coffins = uncle.createCoffin(deck);
         uncle.lightCoffinTops();
         Scene scene = new Scene(coffins);
+        Coffin lastone = uncle.iForgor();
+        scene.setContents(lastone);
+
+
+
 
         elly.jump();
         elly.goTo(Place.HALL);

@@ -137,7 +137,12 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
             setInjuries(Injury.SCRATCH);
         }
     }
-
+    public void rename(Person person){
+        person.setName("Gadge");
+        System.out.printf("%n%s", "That's much better");
+        person.setPlace(Place.WINDOWSILL);
+        System.out.print(", stay here");
+    }
     public void feel(Emotion emotion) {
         setEmotionalState(emotion);
         if (emotion == Emotion.FEAR||emotion == Emotion.DISTURBANCE){
@@ -163,12 +168,13 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     public void stir(){feel(Emotion.DISCOMFORT);
     }
     public void showTo(Person person, Injury injury){
-        System.out.printf("%n-%s", "Hey, look!");
+        System.out.printf("%n-%s", "Hey, look! It's a " + injury);
         this.feel(Emotion.INTEREST);
         person.feel(Emotion.INTEREST);
     }
     public void showTo(Person person, Thing thing){
-        System.out.printf("%n-%s", "Hey, look!");
+        System.out.printf("%n-%s", "Hey, look! It's a " + thing.getClass().getSimpleName());
+        person.feel(Emotion.INTEREST);
     }
     public void remember(Scene scene){
         if (scene.getContents().getClass() == Coffin.class) {
@@ -199,6 +205,7 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     public void putBlanketOver(Person gadge){gadge.setTemperature(37);}
     public void lightCoffinTops(){
         Place.EXHIBITION.setLeveloflighting(30);
+        System.out.printf("%n%s", Place.EXHIBITION.getLeveloflighting() + " - Looks good to me");
     }
     public ArrayList<Coffin> createCoffin(ArrayList<Deck> deck) {
         for (int i = 0; i < 1000; i++) {
@@ -210,10 +217,14 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
             coff.setWeight(9);
             coffins.add(coff);
         }
-        System.out.println(coffins.get(1).getWeight() + " - Thats's a heavy one!");
+        System.out.printf("%n%s", coffins.get(1).getWeight() + " - Thats's a heavy one!");
         return coffins;
     }
-    public void nameCat(Cat cat){
+    public Coffin iForgor(){
+        System.out.printf("%n%s", "Almost forgot one!");
+        return new Coffin(Place.EXHIBITION, 9);
+    }
+    public void rename(Cat cat){
         cat.setName("Church");
         System.out.println(cat.getName() + " good boy");
     }
@@ -228,7 +239,7 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         picture.setContents(drawnGadge);
         picture.setContents(drawnElly);
         for (int i = 0; i < 4; i++) {
-            System.out.println(((DrawnPerson) picture.getContents(i)).getColour() + " - What a nice colour!");
+            System.out.printf("%n%s", ((DrawnPerson) picture.getContents(i)).getColour() + " - What a nice colour!");
         }
         return picture;
     }
