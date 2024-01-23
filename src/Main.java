@@ -10,21 +10,24 @@ public class Main {
         Person louis = new Person(Place.WINDOWSILL, 36, "Louis", 120);
         Person gadge = new Person(Place.WINDOWSILL, 36, "Gadge", 120);
         Person rachel = new Person(Place.HALL, 36, "Rachel", 120);
-        Person elly =  new Person(Place.WINDOWSILL, 36, "Elly", 120);
+        Person elly = new Person(Place.WINDOWSILL, 36, "Elly", 120);
         Door door = new Door(Place.ENTRANCE, 5, DoorState.CLOSED);
-        Cat church = new Cat("Church");
+        GadgeBed gadgeBed = new GadgeBed(Place.GADGE_ROOM, 4.5);
+        Cat church = new Cat("Bob");
         Person uncle = new Person(Place.EXHIBITION, 36, "Uncle", 120);
         ArrayList<Deck> deck = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
             Deck d = new Deck(Place.EXHIBITION, 1);
             deck.add(d);
         }
+        louis.nameCat(church);
         Picture picture = new Picture(Place.HALL, 0.1);
         ArrayList<Coffin> coffins = uncle.createCoffin(deck);
         uncle.lightCoffinTops();
         Scene scene = new Scene(coffins);
 
         elly.jump();
+        elly.goTo(Place.HALL);
         rachel.lookAt(louis);
         Picture finishedPicture = elly.draw(picture);
         elly.hold(finishedPicture);
@@ -34,7 +37,7 @@ public class Main {
         gadge.sleep();
         gadge.lookAt(rachel);
         rachel.feel(Emotion.DESPAIR);
-        if (rachel.getEmotionalState() == Emotion.DESPAIR){
+        if (rachel.getEmotionalState() == Emotion.DESPAIR) {
             louis.feel(Emotion.FEAR);
             louis.think("We're really going to get old. It's really true. No one's going to make an exception for us. She's on her way … and so are we.");
         }
@@ -64,7 +67,8 @@ public class Main {
         louis.laugh();
         louis.feel(Emotion.TREMORS);
         louis.goTo(Place.GADGE_ROOM);
-        louis.putDown(gadge, Place.GADGE_BED);
+        louis.putDown(gadge, gadgeBed.getPlace());
+        gadgeBed.rock();
         louis.putBlanketOver(gadge);
         louis.remember(scene);
         louis.think("Good God, what gave you the horrors? Let it go! Dump it!");

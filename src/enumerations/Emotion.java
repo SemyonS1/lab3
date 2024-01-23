@@ -9,5 +9,6 @@ public enum Emotion {
     DISTURBANCE,
     TREMORS,
     DISCOMFORT,
-    JOY
+    JOY,
+    INTEREST
 }

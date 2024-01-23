@@ -11,9 +11,9 @@ import java.util.Objects;
 public class Person implements PutInterface, HoldInterface, MovementInterface {
     private Place place;
     private String name;
-    private ArrayList<Emotion> EmotionalState;
+    private final ArrayList<Emotion> EmotionalState;
     private int temperature;
-    private ArrayList<Injury> injuries;
+    private final ArrayList<Injury> injuries;
     private int bloodPressure;
     private Person personAtSight;
     private Thing objectAtSight;
@@ -90,6 +90,7 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
 
     public void sayTo(Person person, String string) {
         System.out.printf("%n-%s", string);
+        person.feel(Emotion.INTEREST);
     }
 
     public void putDown(Thing thing, Place place) {
@@ -163,17 +164,21 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
     }
     public void showTo(Person person, Injury injury){
         System.out.printf("%n-%s", "Hey, look!");
+        this.feel(Emotion.INTEREST);
+        person.feel(Emotion.INTEREST);
     }
     public void showTo(Person person, Thing thing){
         System.out.printf("%n-%s", "Hey, look!");
     }
     public void remember(Scene scene){
-        this.feel(Emotion.FEAR);
-        this.feel(Emotion.DESPAIR);
-        this.feel(Emotion.DISTURBANCE);
+        if (scene.getContents().getClass() == Coffin.class) {
+            this.feel(Emotion.FEAR);
+            this.feel(Emotion.DESPAIR);
+            this.feel(Emotion.DISTURBANCE);
+        }
     }
     public void kissSmn(Person person){
-        System.out.printf("%n%s", "*kiss noise");
+        System.out.printf("%n%s", "*kiss noise*");
         person.feel(Emotion.JOY);
     }
     public void goTo(Place place){
@@ -201,20 +206,30 @@ public class Person implements PutInterface, HoldInterface, MovementInterface {
         }
         ArrayList<Coffin> coffins = new ArrayList<>();
         for (int j = 0; j < 100; j += 10){
-            Coffin coff = new Coffin(Place.EXHIBITION, 10);
+            Coffin coff = new Coffin(Place.EXHIBITION, 0);
+            coff.setWeight(9);
             coffins.add(coff);
         }
+        System.out.println(coffins.get(1).getWeight() + " - Thats's a heavy one!");
         return coffins;
     }
-    public Picture draw(Picture picture){
-        Person drawnLouis = new Person(Place.GADGE_ROOM, 0, "Daddy", 0);
-        Person drawnRachel = new Person(Place.GADGE_ROOM, 0, "Mommy", 0);
-        Person drawnGadge = new Person(Place.GADGE_ROOM, 0, "Brother", 0);
-        Person drawnElly = new Person(Place.GADGE_ROOM, 0, "Me", 0);
+    public void nameCat(Cat cat){
+        cat.setName("Church");
+        System.out.println(cat.getName() + " good boy");
+    }
+    public Picture draw(Picture picture) {
+        DrawnPerson drawnLouis = new DrawnPerson(Place.GADGE_ROOM, 0, "Daddy", 0, "Red");
+        DrawnPerson drawnRachel = new DrawnPerson(Place.GADGE_ROOM, 0, "Mommy", 0, "Yellow");
+        DrawnPerson drawnGadge = new DrawnPerson(Place.GADGE_ROOM, 0, "Brother", 0, "Blue");
+        DrawnPerson drawnElly = new DrawnPerson(Place.GADGE_ROOM, 0, "Me", 0, "Pink");
         picture.setContents(drawnLouis);
+        drawnGadge.setColour("Green");
         picture.setContents(drawnRachel);
         picture.setContents(drawnGadge);
         picture.setContents(drawnElly);
+        for (int i = 0; i < 4; i++) {
+            System.out.println(((DrawnPerson) picture.getContents(i)).getColour() + " - What a nice colour!");
+        }
         return picture;
     }
 

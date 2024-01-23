@@ -5,6 +5,6 @@ import people.Person;
 import things.Thing;
 
 public interface HoldInterface {
-    void hold(Person person) throws DifferentPlacesException;
-    void hold(Thing thing) throws DifferentPlacesException;
+    void hold(Person person);
+    void hold(Thing thing);
 }

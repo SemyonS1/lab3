@@ -6,8 +6,7 @@ public enum Place {
     GADGE_ROOM,
     EXHIBITION,
     ENTRANCE,
-    HALL,
-    GADGE_BED;
+    HALL;
     private static int leveloflighting;
     public void setLeveloflighting(int levelofLighting) {
         leveloflighting = levelofLighting;

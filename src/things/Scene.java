@@ -15,8 +15,8 @@ public class Scene {
     public void setContents(ArrayList<Coffin> contents){
         this.contents = contents;
     }
-    public Thing getContents() {
-        for (Thing content : this.contents) {
+    public Coffin getContents() {
+        for (Coffin content : this.contents) {
             return content;
         }
         return null;
